@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="訂單詳情">
+    <meta name="description" content="訂單詳情">
+    <title>訂單詳情</title>
+</head>
+<body>
+    <h2>訂單商品詳情</h2>
+    <ul>
+    {% for item in order_info %}
+        <li>
+            商品名稱：{{ item.product_name }} <br>
+            價格：{{ item.price }} <br>
+            數量：{{ item.quantity }} <br>
+        </li>
+    {% endfor %}
+    </ul>
+
+    <form action="{{ url_for('food_delivered_route', order_id=order_info[0].order_id) }}" method="post">
+        <button type="submit">已送達</button>
+    </form>
+
+    <a href="{{ url_for('index') }}">返回訂單列表</a>
+</body>
+</html>
