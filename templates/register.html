@@ -1,37 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>注冊</title>
+    <title>註冊 - Food Pangolin</title>
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <h1>注册</h1>
-    <form method="POST" action="/register">
-        <label for="name">姓名:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <label for="email">邮箱:</label>
-        <input type="email" id="email" name="email" required>
-        <br>
-        <label for="pwd">密码:</label>
-        <input type="password" id="pwd" name="pwd" required>
-        <br>
- 
-        <button type="submit">提交</button>
-    </form>
-    <form action="/login" method="GET">
-        <input type="submit" value="返回">
-    </form>
-    
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul>
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+    <header>
+        <h1>註冊 Food Pangolin</h1>
+    </header>
+    <main>
+        <form action="/register" method="POST">
+            <label for="username">帳號：</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">密碼：</label>
+            <input type="password" id="password" name="password" required>
+            <label for="role">角色：</label>
+            <select id="role" name="role">
+                <option value="customer">客戶</option>
+                <option value="restaurant">餐廳商家</option>
+                <option value="delivery">送貨小哥</option>
+            </select>
+            <button type="submit">註冊</button>
+        </form>
+        <p>已有帳號？<a href="/login">立即登入</a></p>
+    </main>
 </body>
 </html>

@@ -1,28 +1,24 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html lang="zh-Hant">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>登入</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登入 - Food Pangolin</title>
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-<h2>歡迎回來</h2> 
-
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
-
-<form method="POST" action="/login">
-    Email:<input type="email" name="email" placeholder="Your email" required /><br/>
-    Password:<input type="password" name="pwd" size="20" placeholder="Password" required /><br/>
-    <input type="submit" value="登入"/>
-    <p>沒有賬號?<a href="/register">注冊</a></p>
-</form>
+    <header>
+        <h1>登入 Food Pangolin</h1>
+    </header>
+    <main>
+        <form action="/login" method="POST">
+            <label for="username">帳號：</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">密碼：</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">登入</button>
+        </form>
+        <p>還沒有帳號？<a href="/register">立即註冊</a></p>
+    </main>
 </body>
-</html>
 </html>

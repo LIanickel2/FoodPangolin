@@ -1,45 +1,24 @@
 <!DOCTYPE html>
-<html lang="zh-Hant-TW">
+<html lang="zh-Hant">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="keywords" content="外送平台">
-    <meta name="description" content="外送平台">
-    <title>外送平台</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Pangolin 外送平台</title>
+    <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <h1>訂單管理</h1>
-
-    <h2>待接訂單</h2>
-    {% if all_orders %}
-        <ul>
-        {% for order in all_orders %}
-            <li>
-                餐廳：{{ order.rest_name }} <br>
-                訂單號：{{ order.order_id }} <br>
-                <form action="{{ url_for('take_order_route', order_id=order.order_id) }}" method="post">
-                    <button type="submit">接單</button>
-                </form>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>目前沒有待接訂單。</p>
-    {% endif %}
-
-    <h2>我的訂單</h2>
-    {% if my_orders %}
-        <ul>
-        {% for order in my_orders %}
-            <li>
-                餐廳：{{ order.rest_name }} <br>
-                訂單號：{{ order.order_id }} <br>
-                <a href="{{ url_for('order_details', order_id=order.order_id) }}">查看商品詳情</a> <br>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>您目前沒有接單。</p>
-    {% endif %}
-    <a href="{{ url_for('logout') }}">登出</a> <br>
+    <header>
+        <h1>歡迎來到 Food Pangolin</h1>
+        <nav>
+            <a href="/login">登入</a>
+            <a href="/register">註冊</a>
+        </nav>
+    </header>
+    <main>
+        <h2>輕鬆點餐、快速外送，盡在 Food Pangolin！</h2>
+    </main>
+    <footer>
+        <p>&copy; 2024 Food Pangolin. 保留所有權利。</p>
+    </footer>
 </body>
 </html>
