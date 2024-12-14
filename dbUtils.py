@@ -83,16 +83,25 @@ def execute_many(query, params_list):
     finally:
         close_db_connection(conn, cursor)
 
-# 使用者相關操作
-# 新增使用者
-def create_user(username, password, role):
-    query = "INSERT INTO users (username, password, role) VALUES (%s, %s, %s)"
-    return execute_query(query, (username, password, role))
+# 取得特定使用者資訊
+def get_user_by_username(user_id):
+    return fetch_one("SELECT * FROM users WHERE user_id = %s", (user_id,))
 
-# 根據使用者名稱查詢使用者
-def get_user_by_username(username):
-    query = "SELECT * FROM users WHERE username = %s"
-    return fetch_one(query, (username,))
+# 新增使用者
+def create_user(user_id, password, role, register_time, last_login_time):
+    query = "INSERT INTO users (user_id, password, role, register_time, last_login_time) VALUES (%s, %s, %s, %s, %s)"
+    return execute_query(query, (user_id, password, role, register_time, last_login_time))
+
+# 更新使用者上次登入時間
+def update_last_login_time(user_id, last_login_time):
+    query = "UPDATE users SET last_login_time = %s WHERE id = %s"
+    return execute_query(query, (last_login_time, user_id))
+
+
+# # 取得所有使用者帳號
+# def get_all_username():
+#     query = "SELECT * FROM users"
+#     return fetch_all(query)
 
 # 餐廳菜單相關操作
 # 查詢餐廳的所有菜單項目
