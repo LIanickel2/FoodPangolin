@@ -1,6 +1,6 @@
 # Flask 後端程式
 from flask import Flask, render_template, request, redirect, session, flash, jsonify, url_for
-from dbUtils import aboutTime, get_user_by_username, create_user, update_last_login_time
+from dbUtils import aboutTime, get_user_by_username, create_user, update_last_login_time, get_db_connection
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 
@@ -64,6 +64,12 @@ def register():
     user_id = request.form["username"]
     password = request.form["password"]
     role = request.form.get('role')
+
+    # 檢查資料庫連接
+    conn, cursor = get_db_connection()
+    if not conn:  # 如果無法連接到資料庫，顯示錯誤訊息
+        flash("無法連接到資料庫，請稍後再試", "error")
+        return render_template('loginPage.html', role=role)
 
     # 檢查使用者是否存在於資料庫
     user = get_user_by_username(user_id)
