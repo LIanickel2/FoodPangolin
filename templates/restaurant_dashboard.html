@@ -17,6 +17,15 @@
         <li><a href="#">確認收單</a></li>
         <li><a href="#">通知取餐</a></li>
     </ul>
+    <script>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                        alert("{{ message }}");
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </script>
 </body>
 </html>
 

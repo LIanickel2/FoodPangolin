@@ -1,4 +1,27 @@
 import mysql.connector
+from datetime import datetime
+
+# 取得各種格式的現在時間
+def getCurrentTime():
+    now = datetime.now()
+    year, month, day, weekday_number, hour, minute, second = \
+    now.year, now.month, now.day, now.weekday(), now.hour, now.minute, now.second
+    weekdays = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
+    weekday = weekdays[weekday_number]
+    return f"{year}年{month}月{day}日，{weekday}，{hour}點{minute}分{second}秒"
+def getCurrentTime_forSQL_withHour():
+    now = datetime.now()
+    now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+    return now_str
+def getCurrentTime_forSQL():
+    now = datetime.now()
+    now_str = now.strftime('%Y-%m-%d')
+    return now_str
+aboutTime = {
+    "getCurrentTime": getCurrentTime,
+    "getCurrentTime_forSQL_withHour": getCurrentTime_forSQL_withHour,
+    "getCurrentTime_forSQL": getCurrentTime_forSQL,
+}
 
 # 取得資料庫連線
 def get_db_connection():

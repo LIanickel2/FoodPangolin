@@ -151,16 +151,17 @@
         <div class="back-link">
             <a href="/">返回首頁</a>
         </div>
-          <!-- 顯示 Flash 訊息 -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash-message {{ category }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
+        <!-- 顯示 Flash 訊息 -->
+        <script>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                            alert("{{ message }}");
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </script>
+        
     </div>
 </body>
 </html>

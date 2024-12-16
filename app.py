@@ -1,28 +1,8 @@
 # Flask 後端程式
 from flask import Flask, render_template, request, redirect, session, flash, jsonify, url_for
-from dbUtils import execute_query, fetch_one, fetch_all, get_user_by_username, create_user, update_last_login_time
+from dbUtils import aboutTime, get_user_by_username, create_user, update_last_login_time
 from werkzeug.security import generate_password_hash, check_password_hash
-from functools import wraps
 import os
-from datetime import datetime
-
-# 取得各種格式的現在時間
-class AboutTime:
-    def getCurrentTime():
-        now = datetime.now()
-        year, month, day, weekday_number, hour, minute, second = \
-        now.year, now.month, now.day, now.weekday(), now.hour, now.minute, now.second
-        weekdays = ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
-        weekday = weekdays[weekday_number]
-        return f"{year}年{month}月{day}日，{weekday}，{hour}點{minute}分{second}秒"
-    def getCurrentTime_forSQL_withHour():
-        now = datetime.now()
-        now_str = now.strftime('%Y-%m-%d %H:%M:%S')
-        return now_str
-    def getCurrentTime_forSQL():
-        now = datetime.now()
-        now_str = now.strftime('%Y-%m-%d')
-        return now_str
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -60,7 +40,7 @@ def login():
         if user and check_password_hash(user["password"], password):
             session["user_id"] = user["user_id"]
             session["role"] = user["role"]
-            update_last_login_time(user_id, AboutTime.getCurrentTime_forSQL_withHour())
+            update_last_login_time(user_id, aboutTime["getCurrentTime_forSQL_withHour"]())
             flash(f"歡迎回來，{user_id}", 'success')
             return redirect(f"/{role}/dashboard")
         else:
@@ -93,7 +73,7 @@ def register():
         # 新增使用者至資料庫
         session["user_id"] = user_id
         session["role"] = role
-        create_user(user_id, password, role, AboutTime.getCurrentTime_forSQL_withHour(), AboutTime.getCurrentTime_forSQL_withHour())
+        create_user(user_id, password, role, aboutTime["getCurrentTime_forSQL_withHour"](), aboutTime["getCurrentTime_forSQL_withHour"]())
         flash("註冊成功", "success")
         return redirect(f"/{role}/dashboard")
     else:
@@ -121,7 +101,7 @@ def customer_dashboard():
         return redirect("/")
     return render_template("customer_dashboard.html")
 
-# 平台結算功能
+# 管理員儀表板
 @app.route("/platform/settlement")
 def platform_settlement():
     if session.get("role") != "admin":
