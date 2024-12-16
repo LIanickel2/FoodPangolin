@@ -24,7 +24,7 @@ aboutTime = {
 }
 
 # 取得資料庫連線
-def get_db_connection():
+def get_db_connection3():
     try:
         conn = mysql.connector.connect(
             user="root",
