@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登入</title>
+</head>
+<body>
+<h2>歡迎回來</h2> 
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endwith %}
+
+<form method="POST" action="/login">
+    Email:<input type="email" name="email" placeholder="Your email" required /><br/>
+    Password:<input type="password" name="pwd" size="20" placeholder="Password" required /><br/>
+    <input type="submit" value="登入"/>
+    <p>沒有賬號?<a href="/register">注冊</a></p>
+</form>
+</body>
+</html>
+</html>
