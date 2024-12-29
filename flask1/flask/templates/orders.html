@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>訂單列表</title>
+</head>
+<body>
+    <h1>訂單列表</h1>
+    
+    <!-- 返回菜單頁面按鈕 -->
+    <a href="/menu"><button>返回菜單</button></a>
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>訂單編號</th>
+                <th>內容</th>
+                <th>狀態</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in data %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.content }}</td>
+                <td>{{ order.status }}</td>
+                <td>
+                    <!-- 確認訂單按鈕 -->
+                    <form action="/confirmOrder" method="POST" style="display:inline;">
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        <input type="submit" value="確認訂單">
+                    </form>
+                    
+                    <!-- 通知取餐按鈕 -->
+                    <form action="/notifyPickup" method="POST" style="display:inline;">
+                        <input type="hidden" name="order_id" value="{{ order.id }}">
+                        <input type="submit" value="通知取餐">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>菜單管理</title>
+</head>
+<body>
+    <h1>菜單管理</h1>
+    
+    <!-- 查看訂單按鈕 -->
+    <a href="/orders"><button>查看訂單</button></a>
+    <br><br>
+    
+    <!-- 新增菜單項目按鈕 -->
+    <a href="/addMenuItem"><button>新增菜單項目</button></a>
+    <br><br>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>項目名稱</th>
+                <th>價格</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+            <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price }}</td>
+                <td>
+                    <!-- 刪除按鈕 -->
+                    <form action="/deleteMenuItem" method="POST" style="display:inline;">
+                        <input type="hidden" name="item_id" value="{{ item.id }}">
+                        <input type="submit" value="刪除" onclick="return confirm('確定要刪除此項目嗎？')">
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
